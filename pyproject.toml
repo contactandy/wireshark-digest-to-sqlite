@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "wireshark-digest-to-sqlite"
+version = "0.1.0"
+description = "Create a SQLite database of the Wireshark digests from a packet capture."
+authors = ["contactandy <contactandy@duck.com>"]
+license = "Apache License 2.0"
+readme = "README.md"
+packages = [{include = "wireshark_digest_to_sqlite"}]
+include = ["scripts/get_sample_pcap.sh"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+sqlite-utils = "^3.33"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+ruff = "^0.4.4"
+
+[tool.poetry.scripts]
+anonymize-digest = 'wireshark_digest_to_sqlite.anonymize_digest:main'
+pcap-curl-sample = 'wireshark_digest_to_sqlite.pcap_curl:main'
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+lint.select = ["E", "F", "I", "PL", "YTT", "RUF"]
+
+[tool.pytest.ini_options]
+log_level = "DEBUG"
