@@ -8,21 +8,22 @@ import pathlib
 from wireshark_digest_to_sqlite import ethernet
 
 
-def addr_tree_digest(addr, direction):
+def addr_tree_digest(addr_for_tree, direction):
     """
     Return the wireshark digest tree for an address. The oui values resolve
     to `Randomized`.
     """
-    oui = f"{ethernet.oui_from_hex_addr(addr):d}"
+    addr = ethernet.EthAddr(addr_for_tree)
+    oui = f"{addr.oui:d}"
     OUI_RESOLVED = "Randomized"
-    local = f"{ethernet.is_local(addr):d}"  # `True` becomes "1"
-    group = f"{ethernet.is_group(addr):d}"
+    local = f"{addr.is_local:d}"  # `True` becomes "1"
+    group = f"{addr.is_group:d}"
     return {
-        f"eth.{direction}_resolved": addr,
+        f"eth.{direction}_resolved": addr_for_tree,
         f"eth.{direction}.oui": oui,
         f"eth.{direction}.oui_resolved": OUI_RESOLVED,
-        "eth.addr": addr,
-        "eth.addr_resolved": addr,
+        "eth.addr": addr_for_tree,
+        "eth.addr_resolved": addr_for_tree,
         "eth.addr.oui": oui,
         "eth.addr.oui_resolved": OUI_RESOLVED,
         f"eth.{direction}.lg": local,
@@ -48,7 +49,7 @@ def randomize_ethernet_addresses(digest):
             if not og_addr:
                 continue
             anon_addr = replaced.setdefault(
-                og_addr, ethernet.random_eth_addr(local=True, group=False)
+                og_addr, str(ethernet.EthAddr.random_eth_addr(local=True, group=False))
             )
             eth_layer[f"eth.{direction}"] = anon_addr
             anon_addr_tree = addr_tree_digest(anon_addr, direction)
