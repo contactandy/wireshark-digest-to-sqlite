@@ -28,7 +28,7 @@ def test_eth_addr():
 
 def test_eth_addr_formats():
     """Test possible formats to initialize the EthAddr class."""
-    components = ("ed", "b7", "2f", "d1", "78", "80", "27, ab")
+    components = ("ed", "b7", "2f", "d1", "78", "80", "27", "ab")
     addr_len = ethernet.EthAddr.ETH_ADDR_BYTE_LEN
 
     for good_sep in [":", ".", ""]:
@@ -59,7 +59,7 @@ def test_eth_addr_formats():
 
 def test_addr_scope():
     """Test EthAddr is_local and is_group properties."""
-    addr_end = ":".join(("ed", "b7", "2f", "d1", "78", "80", "27, ab")[1:6])
+    addr_end = ":".join(("ed", "b7", "2f", "d1", "78", "80", "27", "ab")[1:6])
     for byte0 in range(256):
         addr = ethernet.EthAddr(f"{byte0:02x}:{addr_end}")
         assert bool(byte0 & ethernet.EthAddr.LOCAL_MASK) == addr.is_local
