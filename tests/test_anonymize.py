@@ -22,7 +22,7 @@ def test_addr_tree_digest():
     assert f"eth.{direction}_resolved" in tree_digest
     assert tree_digest["eth.addr"] == addr
 
-    oui = str(ethernet.oui_from_hex_addr(addr))
+    oui = str(ethernet.EthAddr(addr).oui)
     assert tree_digest["eth.addr.oui"] == oui
 
     assert tree_digest["eth.addr.oui_resolved"] == "Randomized"
