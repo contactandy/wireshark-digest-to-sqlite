@@ -1,8 +1,8 @@
 """Test routines in the ethernet module."""
 
-from contextlib import nullcontext as does_not_raise
 import itertools
 import re
+from contextlib import nullcontext as does_not_raise
 
 import pytest
 
@@ -16,14 +16,16 @@ HEX_ETH_ADDR_FIRST_BYTE = re.compile(
 def test_eth_addr():
     """Test the EthAddr class with overall tests."""
     sample_address = "ed:b7:2f:d1:78:80"
+    sample_address_oui = 15578927
+    sample_address_nic = 13727872
     addr = ethernet.EthAddr(sample_address)
     assert addr.human_friendly_form == sample_address
     assert str(addr) == sample_address
     assert addr.normalized == b"\xed\xb7\x2f\xd1\x78\x80"
     assert addr.is_local
     assert not addr.is_group
-    assert addr.oui == 15578927
-    assert addr.nic == 13727872
+    assert addr.oui == sample_address_oui
+    assert addr.nic == sample_address_nic
 
 
 def test_eth_addr_formats():
