@@ -29,5 +29,5 @@ jobs:
         poetry run ruff check --output-format=github .
     - name: Test with pytest
       run: |
-        poetry run pytest --cov --cov-report=html
+        poetry run pytest
 
