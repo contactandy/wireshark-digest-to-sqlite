@@ -15,6 +15,7 @@ sqlite-utils = "^3.33"
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.0"
 ruff = "^0.4.4"
+pre-commit = "^3.8.0"
 
 [tool.poetry.scripts]
 anonymize-digest = 'wireshark_digest_to_sqlite.anonymize_digest:main'
