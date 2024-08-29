@@ -18,7 +18,6 @@ jobs:
       with:
         args: format
         src: ./
-        config: .pyproject.toml
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: 'style fixes by ruff'
