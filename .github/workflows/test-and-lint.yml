@@ -1,6 +1,4 @@
-#This workflow installs Python dependencies, tests, and lints.
-
-name: Python application
+name: Pull Workflow - Test and lint
 
 on:
   pull_request:
@@ -9,7 +7,7 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  validate:
 
     runs-on: ubuntu-latest
 
